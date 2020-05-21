@@ -38,6 +38,10 @@ module GreenDay
       RSpec::Core::Runner.run([file_path])
     end
 
+    map 'l' => 'login'
+    map 'n' => 'new'
+    map 'r' => 'rspec'
+
     private
 
     def create_submit_file!(contest_name, task_code)
