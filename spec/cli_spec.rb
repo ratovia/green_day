@@ -5,21 +5,17 @@ require 'spec_helper'
 RSpec.describe GreenDay::Cli do
   let!(:cli) { described_class.new }
 
-  RSpec.configure do |config|
-    config.after(:suite) do
-      FileUtils.remove_entry_secure('.snippet')
-    end
-  end
-
   describe 'new [contest name]' do
     # https://atcoder.jp/contests/abc150
     subject { cli.new('abc150') }
-
+    snippet_file_exist = File.exist?('.greenday_snippet')
+    
     before :example do
       subject
     end
-
+    
     after :example do
+      FileUtils.remove_entry_secure('.greenday_snippet')
       FileUtils.remove_entry_secure('abc150')
     end
 
@@ -82,6 +78,16 @@ RSpec.describe GreenDay::Cli do
           end
         SPEC
       )
+    end
+
+    it 'create snippet file' , current: true do
+      expect(snippet_file_exist).not_to eq File.exist?('.greenday_snippet')
+    end
+
+    it 'uncreate snippet file when already exist' do
+    end
+
+    it 'apply modified snippet' do
     end
   end
 
